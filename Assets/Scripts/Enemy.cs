@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    //shoot bullets sideways
     [SerializeField] private int _speed = 4;
 
     // Update is called once per frame
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Laser")
         {
