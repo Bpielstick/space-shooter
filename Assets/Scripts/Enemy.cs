@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     //shoot bullets sideways
     [SerializeField] private int _speed = 4;
+    GameObject UIManager;
 
     // Update is called once per frame
     void Update()
@@ -20,15 +21,18 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Laser")
+        if (other.tag == "Laser" || other.tag == "Shield")
         {
             Destroy(other.gameObject);            
         }
         else if (other.tag == "Player")
-        {
+        {            
             Player player = other.transform.GetComponent<Player>();
             if (player != null) { player.TakeDamage(); }
-        }
+        }        
+        UIManager = GameObject.Find("Canvas");
+        UIManager uiManagerComponent = UIManager.transform.GetComponent<UIManager>();
+        uiManagerComponent.AddScore(100);
         Destroy(gameObject);
     }
 }

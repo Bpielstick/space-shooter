@@ -10,13 +10,15 @@ public class Player : MonoBehaviour
     [SerializeField] private int _speedBoosted = 15;
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
+    [SerializeField] private GameObject _shield;
     [SerializeField] private float _fireRate = 0.2f;
     private float _lastFired;
     [SerializeField] private int _health = 3;
     private SpawnManager _spawnManager;
     private bool _powerupTripleShot = false;
     private bool _powerupSpeed = false;
-
+    private GameObject _canvas;
+    private UIManager _UIManager;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,10 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("spawn manager not found");
         }
+
+        _canvas = GameObject.Find("Canvas");
+        _UIManager = _canvas.GetComponent<UIManager>();
+        _UIManager.UpdateHealth(_health);
     }
 
     // Update is called once per frame
@@ -72,12 +78,20 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (_health > 1) { _health--; }
+        if (_health > 1) 
+        { 
+            _health--;
+            _UIManager.UpdateHealth(_health);
+        }
         else
         {
+            _health--;
+            _UIManager.UpdateHealth(_health);
+            _UIManager.GameOver(true);
             Destroy(gameObject);
             _spawnManager.OnPlayerDeath();
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -97,9 +111,12 @@ public class Player : MonoBehaviour
                 _currentSpeed = _speedBoosted;
                 StartCoroutine(PowerupTimerRoutine());
                 break;
-            case "Shield":
+            case "ShieldPowerup":
+                Destroy(other.gameObject);
+                GameObject ActiveShield = Instantiate(_shield, this.transform.position, Quaternion.identity, this.transform);
+                ActiveShield.transform.SetParent(this.transform);
                 break;
-        }        
+        }
     }
 
     private IEnumerator PowerupTimerRoutine()

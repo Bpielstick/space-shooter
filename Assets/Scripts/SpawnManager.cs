@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (!_stopSpawning)
         {            
-            GameObject PowerupToSpawn = powerups[Random.Range(0, 2)];
+            GameObject PowerupToSpawn = powerups[Random.Range(0, 3)];
 
             if (PowerupToSpawn != null)
             {
