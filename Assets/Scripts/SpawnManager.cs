@@ -18,10 +18,12 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnRoutine());
         StartCoroutine(IncreaseSpawnRate());
         StartCoroutine(SpawnPowerupRoutine());
+        this.enabled = true;
     }
 
     private IEnumerator SpawnPowerupRoutine()
     {
+        yield return new WaitForSeconds(10);
         while (!_stopSpawning)
         {            
             GameObject PowerupToSpawn = powerups[Random.Range(0, 3)];
@@ -38,7 +40,8 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
-       while (!_stopSpawning)
+        yield return new WaitForSeconds(2);
+        while (!_stopSpawning)
         {
             GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
             newObject.transform.parent = _container.transform;

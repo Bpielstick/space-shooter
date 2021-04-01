@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _instructionText;
     [SerializeField] private GameObject _startText;
 
+    [SerializeField] private GameObject _Asteroid;
 
     private bool _gameover = false;
     private bool _gamestarted = false;
@@ -49,8 +50,12 @@ public class UIManager : MonoBehaviour
 
             _livesDisplay.SetActive(true);
             _scoreText.SetActive(true);
-            _spawnManager.SetActive(true);
             _player.SetActive(true);
+        }
+
+        if (_Asteroid == null) 
+        {
+            _spawnManager.SetActive(true);
         }
     }
 
