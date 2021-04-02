@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
 
         if (_player != null)
         {
-            if (Math.Round(transform.position.y, 1) - 0.5 == Math.Round(_player.transform.position.y, 1) && !_hasfired && !_dying)
+            if (Math.Round(transform.position.y, 1) - 0.5 == Math.Round(_player.transform.position.y, 1) && !_hasfired && !_dying && UnityEngine.Random.Range(1,3) > 1)
             {
                 if (transform.position.x > _player.transform.position.x)
                 {

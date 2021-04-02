@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _baseSpeed = 8;
-    [SerializeField] private int _currentSpeed = 8;
+    [SerializeField] private int _baseThrusterSpeed = 10;
+    [SerializeField] private int _currentSpeed = 6;
     [SerializeField] private int _speedBoosted = 15;
+    [SerializeField] private int _thrusterSpeed = 10;
     [SerializeField] private GameObject _laser;
     [SerializeField] private GameObject _tripleShot;
     [SerializeField] private GameObject _shield;
@@ -51,9 +52,22 @@ public class Player : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);           
 
-        transform.Translate(direction * _currentSpeed * Time.deltaTime);
+        if (Input.GetButton("Fire3"))
+        {
+            transform.Translate(direction * _thrusterSpeed * Time.deltaTime);
+        }
+        else 
+        {
+            transform.Translate(direction * _currentSpeed * Time.deltaTime);
+        }
+
+        if (Input.GetButtonDown("Fire3"))
+        {
+            StartCoroutine(SpeedParticleRoutine());
+        }
+
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -9.3f, 9.3f), Mathf.Clamp(transform.position.y, -4f, 4), 0);
 
         if (horizontalInput < 0)
@@ -165,9 +179,8 @@ public class Player : MonoBehaviour
                 Destroy(other.gameObject);
                 _powerupTripleShot = false;
                 _powerupSpeed = true;
-                _currentSpeed = _speedBoosted;
-                StartCoroutine(PowerupTimerRoutine());
-                StartCoroutine(SpeedParticleRoutine());
+                _thrusterSpeed = _speedBoosted;
+                StartCoroutine(PowerupTimerRoutine());                
                 audioSource.clip = _powerupAudio;
                 audioSource.Play();
                 break;
@@ -191,16 +204,25 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(5);
             _powerupTripleShot = false;
             _powerupSpeed = false;
-            _currentSpeed = _baseSpeed;
+            _thrusterSpeed = _baseThrusterSpeed;
         }
     }
 
     private IEnumerator SpeedParticleRoutine()
     {
-        while (_powerupSpeed)
+        while (Input.GetButton("Fire3"))
         {
-            Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f,-0.2f), transform.position.y-0.5f, 0), Quaternion.identity);
-            yield return new WaitForSeconds(0.05f);
+            if (_powerupSpeed)
+            {
+                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
+                yield return new WaitForSeconds(0.01f);
+            }
+            else
+            {
+                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
+                yield return new WaitForSeconds(0.04f);
+            }
+            
         }
 
     }

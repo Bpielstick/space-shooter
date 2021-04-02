@@ -463,9 +463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2315de11f66a32640a835476287b38aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseSpeed: 8
-  _currentSpeed: 8
+  _baseThrusterSpeed: 10
+  _currentSpeed: 6
   _speedBoosted: 15
+  _thrusterSpeed: 10
   _laser: {fileID: 2729993133765313384, guid: 9e14a1f93cd0a20488d2278311436138, type: 3}
   _tripleShot: {fileID: 159044594214870709, guid: baead0dfd3d060548bf963b6f08d1b56, type: 3}
   _shield: {fileID: 8895584650543936837, guid: 1ce4bf5eebd57f5448d2f2dcbd933987, type: 3}
