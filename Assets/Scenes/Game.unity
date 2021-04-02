@@ -1008,6 +1008,7 @@ MonoBehaviour:
   - {fileID: 3864806976638038471, guid: b5d4fd2bf5a81b94ea5427ceda927a40, type: 3}
   - {fileID: 92552684833778415, guid: d65041fc54fcf514bbbec092fa1aa2bd, type: 3}
   - {fileID: 2753689463000126183, guid: e4e77b8eb83064f4686bb3669f4de9df, type: 3}
+  - {fileID: 6632425291873549610, guid: b91b1aab4b76ad34ba27892d654f6645, type: 3}
   resourcePowerups:
   - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
   - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
@@ -2677,12 +2678,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7400000, guid: 6649de20ebecda74cb25e4152ad00e79, type: 2}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _missile
+      value: 
+      objectReference: {fileID: 2874891194336585708, guid: 6b031390539bdea419d0996263f38d6c, type: 3}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _outOfAmmo
       value: 
       objectReference: {fileID: 8300000, guid: 88dc30478a9011543bcaaa2b437832fb, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _missileAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 915759af3dbbd1341865afe58416c8b0, type: 3}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _speedParticle
       value: 
       objectReference: {fileID: 1579586803099290189, guid: 409c14da48ea8d74683c1a59b9e9863d, type: 3}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _missilesActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}

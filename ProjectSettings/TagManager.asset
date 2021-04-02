@@ -13,6 +13,9 @@ TagManager:
   - EnemyLaser
   - Ammo
   - Health
+  - Missile
+  - MissilePowerup
+  - MissileExplosion
   layers:
   - Default
   - TransparentFX

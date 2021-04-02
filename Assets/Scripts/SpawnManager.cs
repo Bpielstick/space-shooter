@@ -28,10 +28,17 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(10);
         while (!_stopSpawning)
         {            
-            GameObject PowerupToSpawn = powerups[Random.Range(0, powerups.Length)];
-
-            SpawnPowerup(PowerupToSpawn);
-
+            if (Random.Range(0,2) < 1)
+            {
+                GameObject PowerupToSpawn = powerups[Random.Range(0, powerups.Length)];
+                SpawnPowerup(PowerupToSpawn);
+            }
+            else
+            {
+                GameObject PowerupToSpawn = powerups[Random.Range(0, powerups.Length-1)];
+                SpawnPowerup(PowerupToSpawn);
+            }          
+            
             yield return new WaitForSeconds(_powerupRate + Random.Range(_powerupRate*0.5f,_powerupRate*1.5f));
         }
     }

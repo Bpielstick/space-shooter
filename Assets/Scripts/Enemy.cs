@@ -11,17 +11,19 @@ public class Enemy : MonoBehaviour
     [SerializeField] AnimationClip Explode;
     [SerializeField] int ScoreValue;
     [SerializeField] private AudioClip _explodeAudio;
-    private AudioSource audioSource;
-    [SerializeField] GameObject _player;
-    [SerializeField] GameObject _leftlaser;
-    [SerializeField] GameObject _rightlaser;
-    [SerializeField] AudioClip _laserAudio;
+    [SerializeField] private AudioClip _missileExplodeAudio;
+    private AudioSource _audioSource;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _leftlaser;
+    [SerializeField] private GameObject _rightlaser;
+    [SerializeField] private AudioClip _laserAudio;
+    [SerializeField] private GameObject _missileExplosion;
     private bool _hasfired = false;
     private bool _dying = false;
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -37,18 +39,18 @@ public class Enemy : MonoBehaviour
 
         if (_player != null)
         {
-            if (Math.Round(transform.position.y, 1) - 0.5 == Math.Round(_player.transform.position.y, 1) && !_hasfired && !_dying && UnityEngine.Random.Range(1,3) > 1)
+            if (Math.Round(transform.position.y, 1) - 0.5 == Math.Round(_player.transform.position.y, 1) && !_hasfired && !_dying && UnityEngine.Random.Range(1, 3) > 1)
             {
                 if (transform.position.x > _player.transform.position.x)
                 {
                     Instantiate(_leftlaser, new Vector3(-0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
-                    audioSource.PlayOneShot(_laserAudio);
+                    _audioSource.PlayOneShot(_laserAudio);
                     _hasfired = true;
                 }
                 else if (transform.position.x < _player.transform.position.x)
                 {
                     Instantiate(_rightlaser, new Vector3(0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
-                    audioSource.PlayOneShot(_laserAudio);
+                    _audioSource.PlayOneShot(_laserAudio);
                     _hasfired = true;
                 }
             }
@@ -71,10 +73,17 @@ public class Enemy : MonoBehaviour
             Player player = other.transform.GetComponent<Player>();
             if (player != null) { player.TakeDamage(); }
         }
-        else if (other.tag == "Speed" || other.tag == "TripleShot" || other.tag == "ShieldPowerup" || other.tag == "Enemy")
+        else if (other.tag == "Speed" || other.tag == "TripleShot" || other.tag == "ShieldPowerup" || other.tag == "Enemy" || other.tag == "MissileExplosion")
         {
 
         } 
+        else if (other.tag == "Missile")
+        {
+            Destroy(other.gameObject);
+            Instantiate(_missileExplosion, other.transform.position, Quaternion.identity);
+            _audioSource.clip = _missileExplodeAudio;
+            _audioSource.Play();
+        }
 
         PreDestroy();
     }
@@ -87,8 +96,8 @@ public class Enemy : MonoBehaviour
         UIManager uiManagerComponent = UIManager.transform.GetComponent<UIManager>();
         uiManagerComponent.AddScore(ScoreValue);
 
-        audioSource.clip = _explodeAudio;
-        audioSource.PlayOneShot(_explodeAudio);
+        _audioSource.clip = _explodeAudio;
+        _audioSource.PlayOneShot(_explodeAudio);
 
         BoxCollider2D Collider = this.GetComponent<BoxCollider2D>();
         Collider.enabled = false;
