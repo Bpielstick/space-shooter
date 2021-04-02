@@ -57,10 +57,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Laser" || other.tag == "Shield")
+        if (other.tag == "Laser")
         {
             Destroy(other.gameObject);
 
+        }
+        else if (other.tag == "Shield")
+        {
+            other.GetComponent<Shield>().TakeDamage();
         }
         else if (other.tag == "Player")
         {
