@@ -402,7 +402,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "WASD - Move\t\t\tSpace - Shoot"
+  m_Text: "WASD - Move\t\t\tSpace - Shoot          ESC - Quit"
 --- !u!222 &295957536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -425,9 +425,9 @@ RectTransform:
   m_Father: {fileID: 1728949253}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23, y: -178}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -91, y: 25}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &347325408
@@ -462,9 +462,9 @@ RectTransform:
   m_Father: {fileID: 1728949253}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -510, y: -23}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 267, y: -23}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347325410
@@ -1182,7 +1182,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8bea920b8ab03d748bdbb0351ae40cd5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cc470e1b454f7904984aef57e0273eb4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2223,6 +2223,7 @@ MonoBehaviour:
   _instructionText: {fileID: 295957534}
   _startText: {fileID: 1909401672}
   _Asteroid: {fileID: 1028677689}
+  gamestarted: 0
 --- !u!4 &1863107516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6130665229273950009, guid: c586f7e8a04355445934bd63e4e4dfe3, type: 3}
@@ -2481,6 +2482,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 174078824, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 517125874, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1306659027, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560244246, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1613155520, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732419, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,10 +12,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] int ScoreValue;
     [SerializeField] private AudioClip _explodeAudio;
     private AudioSource audioSource;
+    [SerializeField] GameObject _player;
+    [SerializeField] GameObject _leftlaser;
+    [SerializeField] GameObject _rightlaser;
+    [SerializeField] AudioClip _laserAudio;
+    private bool _hasfired = false;
+    private bool _dying = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -25,6 +33,25 @@ public class Enemy : MonoBehaviour
         {
             //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
             Destroy(gameObject);
+        }
+
+        if (_player != null)
+        {
+            if (Math.Round(transform.position.y, 1) - 0.5 == Math.Round(_player.transform.position.y, 1) && !_hasfired && !_dying)
+            {
+                if (transform.position.x > _player.transform.position.x)
+                {
+                    Instantiate(_leftlaser, new Vector3(-0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+                else if (transform.position.x < _player.transform.position.x)
+                {
+                    Instantiate(_rightlaser, new Vector3(0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+            }
         }
     }
 
@@ -39,15 +66,19 @@ public class Enemy : MonoBehaviour
         {
             Player player = other.transform.GetComponent<Player>();
             if (player != null) { player.TakeDamage(); }
-        } else if (other.tag == "Speed" || other.tag == "TripleShot" || other.tag == "ShieldPowerup")
+        }
+        else if (other.tag == "Speed" || other.tag == "TripleShot" || other.tag == "ShieldPowerup" || other.tag == "Enemy")
         {
 
-        }
+        } 
+
         PreDestroy();
     }
 
     private void PreDestroy()
     {
+        _dying = true;
+
         UIManager = GameObject.Find("Canvas");
         UIManager uiManagerComponent = UIManager.transform.GetComponent<UIManager>();
         uiManagerComponent.AddScore(ScoreValue);

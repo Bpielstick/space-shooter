@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 
     private void FireButtonListener()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time - _lastFired > _fireRate)
+        if (Input.GetButtonDown("Fire1") && Time.time - _lastFired > _fireRate && _UIManager.GetComponent<UIManager>().gamestarted)
         {
             _lastFired = Time.time;
             FireWeapon();
@@ -103,9 +103,7 @@ public class Player : MonoBehaviour
     }
 
     private void FireWeapon()
-    {
-        
-        
+    {                
         if (!_powerupTripleShot)
         {
             Instantiate(_laser, new Vector3(0, 0.8f, 0) + transform.position, Quaternion.identity);
@@ -119,8 +117,6 @@ public class Player : MonoBehaviour
             audioSource.PlayOneShot(audioSource.clip);
             audioSource.PlayDelayed(0.1f);
         }
-
-
     }
 
     public void TakeDamage()
@@ -130,7 +126,7 @@ public class Player : MonoBehaviour
             _health--;
             _UIManager.UpdateHealth(_health);
         }
-        else
+        else if (_health == 1)
         {
             _health--;
             _UIManager.UpdateHealth(_health);
@@ -181,6 +177,9 @@ public class Player : MonoBehaviour
                 ActiveShield.transform.SetParent(this.transform);
                 audioSource.clip = _powerupAudio;
                 audioSource.Play();
+                break;
+            case "EnemyLaser":
+                TakeDamage();
                 break;
         }
     }

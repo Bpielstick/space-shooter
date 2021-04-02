@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _Asteroid;
 
     private bool _gameover = false;
-    private bool _gamestarted = false;
+    public bool gamestarted = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,14 +36,13 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown("r") && _gameover)
+        if (Input.GetKey("r") && _gameover)
         {
             SceneManager.LoadScene("Game");
         }
 
-        if (Input.GetKeyDown("space") && !_gamestarted)
+        if (Input.GetKey("space") && !gamestarted)
         {
-            _gamestarted = true;
             _titleText.SetActive(false);
             _instructionText.SetActive(false);
             _startText.SetActive(false);
@@ -51,6 +50,12 @@ public class UIManager : MonoBehaviour
             _livesDisplay.SetActive(true);
             _scoreText.SetActive(true);
             _player.SetActive(true);
+            gamestarted = true;
+        }
+
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
         }
 
         if (_Asteroid == null) 

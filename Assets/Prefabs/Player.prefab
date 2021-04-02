@@ -475,6 +475,7 @@ MonoBehaviour:
   Explode: {fileID: 7400000, guid: 6649de20ebecda74cb25e4152ad00e79, type: 2}
   _explodeAudio: {fileID: 8300000, guid: 65a9d99c253dbba44bdd75d27cafb4fc, type: 3}
   _laserAudio: {fileID: 8300000, guid: 07b14cdea5fc15a41993404831c198e8, type: 3}
+  _powerupAudio: {fileID: 8300000, guid: 6bc1064fbd038ea43b372d0296270b76, type: 3}
 --- !u!212 &8613393914219732445
 SpriteRenderer:
   m_ObjectHideFlags: 0

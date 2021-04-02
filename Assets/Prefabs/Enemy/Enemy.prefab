@@ -52,6 +52,10 @@ MonoBehaviour:
   Explode: {fileID: 7400000, guid: 0d4454c724b2f8b42b7686135441a884, type: 2}
   ScoreValue: 100
   _explodeAudio: {fileID: 8300000, guid: 65a9d99c253dbba44bdd75d27cafb4fc, type: 3}
+  _player: {fileID: 8613393914219732446, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+  _leftlaser: {fileID: 8296848897528910088, guid: 9d499a946d03c1c4b8449751a0bb03d3, type: 3}
+  _rightlaser: {fileID: 4878354523501774011, guid: db57523b9b49a3740b8219373c6eba17, type: 3}
+  _laserAudio: {fileID: 8300000, guid: 07b14cdea5fc15a41993404831c198e8, type: 3}
 --- !u!212 &-3924649608446157074
 SpriteRenderer:
   m_ObjectHideFlags: 0
