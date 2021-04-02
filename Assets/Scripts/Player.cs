@@ -208,6 +208,13 @@ public class Player : MonoBehaviour
             case "EnemyLaser":
                 TakeDamage();
                 break;
+            case "Ammo":
+                Destroy(other.gameObject);
+                _currentAmmo = _maxAmmo;
+                _UIManager.UpdateAmmo(_currentAmmo);
+                audioSource.clip = _powerupAudio;
+                audioSource.Play();
+                break;
         }
     }
 

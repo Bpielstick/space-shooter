@@ -6,6 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
     [SerializeField] GameObject[] powerups;
+    [SerializeField] GameObject[] resourcePowerups;
     [SerializeField] private GameObject _container;
     private bool _stopSpawning = false;
     [SerializeField] private float _spawnRate = 1.0f;
@@ -18,6 +19,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnRoutine());
         StartCoroutine(IncreaseSpawnRate());
         StartCoroutine(SpawnPowerupRoutine());
+        StartCoroutine(SpawnResourcePowerupRoutine());
         this.enabled = true;
     }
 
@@ -26,15 +28,33 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(10);
         while (!_stopSpawning)
         {            
-            GameObject PowerupToSpawn = powerups[Random.Range(0, 3)];
+            GameObject PowerupToSpawn = powerups[Random.Range(0, powerups.Length)];
 
-            if (PowerupToSpawn != null)
-            {
-                GameObject newObject = Instantiate(PowerupToSpawn, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
+            SpawnPowerup(PowerupToSpawn);
 
             yield return new WaitForSeconds(_powerupRate + Random.Range(_powerupRate*0.5f,_powerupRate*1.5f));
+        }
+    }
+
+    private IEnumerator SpawnResourcePowerupRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        while (!_stopSpawning)
+        {
+            GameObject PowerupToSpawn = resourcePowerups[Random.Range(0, resourcePowerups.Length)];
+
+            SpawnPowerup(PowerupToSpawn);
+
+            yield return new WaitForSeconds(_powerupRate + Random.Range(_powerupRate * 0.25f, _powerupRate * 0.5f));
+        }
+    }
+
+    private void SpawnPowerup(GameObject PowerupToSpawn)
+    {
+        if (PowerupToSpawn != null)
+        {
+            GameObject newObject = Instantiate(PowerupToSpawn, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
         }
     }
 

@@ -1008,6 +1008,8 @@ MonoBehaviour:
   - {fileID: 3864806976638038471, guid: b5d4fd2bf5a81b94ea5427ceda927a40, type: 3}
   - {fileID: 92552684833778415, guid: d65041fc54fcf514bbbec092fa1aa2bd, type: 3}
   - {fileID: 2753689463000126183, guid: e4e77b8eb83064f4686bb3669f4de9df, type: 3}
+  resourcePowerups:
+  - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
   _container: {fileID: 1513578747}
   _spawnRate: 1
   _powerupRate: 6
@@ -1362,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1279579149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1395,7 +1397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1510,7 +1512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1299844745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1524,16 +1526,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 07f3f621c81326847bb65de1363cf4a0, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2283,8 +2285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1820606aa2deb7044abf557e8c2c26e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heartDisplay: {fileID: 1279579150}
-  _ammoDisplay: {fileID: 1299844745}
+  _heartImage: {fileID: 1279579150}
+  _ammoImage: {fileID: 1299844745}
   _heartSprites:
   - {fileID: 21300000, guid: 07f6e303f19f1984aa14545124bf657a, type: 3}
   - {fileID: 21300000, guid: 372771d613c2da5438b798bf229e8d4f, type: 3}
@@ -2310,6 +2312,7 @@ MonoBehaviour:
   _gameOverText: {fileID: 1903181577}
   _restartText: {fileID: 549998516}
   _livesDisplay: {fileID: 1279579148}
+  _ammoDisplay: {fileID: 1299844744}
   _scoreText: {fileID: 347325408}
   _spawnManager: {fileID: 941004541}
   _player: {fileID: 1690619866}
@@ -2675,7 +2678,7 @@ PrefabInstance:
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _outOfAmmo
       value: 
-      objectReference: {fileID: 8300000, guid: 9a8f1bdd060ed4048bcd01d7df5fbbfe, type: 3}
+      objectReference: {fileID: 8300000, guid: 88dc30478a9011543bcaaa2b437832fb, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _speedParticle
       value: 

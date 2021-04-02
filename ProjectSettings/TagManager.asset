@@ -11,6 +11,7 @@ TagManager:
   - Shield
   - ShieldPowerup
   - EnemyLaser
+  - Ammo
   layers:
   - Default
   - TransparentFX
