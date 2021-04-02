@@ -1010,6 +1010,7 @@ MonoBehaviour:
   - {fileID: 2753689463000126183, guid: e4e77b8eb83064f4686bb3669f4de9df, type: 3}
   resourcePowerups:
   - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
+  - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
   _container: {fileID: 1513578747}
   _spawnRate: 1
   _powerupRate: 6

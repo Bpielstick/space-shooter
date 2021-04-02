@@ -12,6 +12,7 @@ TagManager:
   - ShieldPowerup
   - EnemyLaser
   - Ammo
+  - Health
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _fireRate = 0.2f;
     private float _lastFired;
     [SerializeField] private int _health = 3;
+    [SerializeField] private int _maxHealth = 3;
     private SpawnManager _spawnManager;
     private bool _powerupTripleShot = false;
     private bool _powerupSpeed = false;
@@ -26,9 +27,10 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip _laserAudio;
     [SerializeField] AudioClip _powerupAudio;
     [SerializeField] AudioClip _outOfAmmo;
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
     [SerializeField] int _maxAmmo = 15;
     [SerializeField] int _currentAmmo = 15;
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,10 @@ public class Player : MonoBehaviour
         _UIManager = _canvas.GetComponent<UIManager>();
         _UIManager.UpdateHealth(_health);
 
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null) { Debug.Log("error audio is null"); }
+        _animator = GetComponent<Animator>();
+        if (_animator == null) { Debug.Log("error animator is null"); }
     }
 
     // Update is called once per frame
@@ -123,8 +128,8 @@ public class Player : MonoBehaviour
             } 
             else if (_currentAmmo == 0)
             {
-                audioSource.clip = _outOfAmmo;
-                audioSource.Play();
+                _audioSource.clip = _outOfAmmo;
+                _audioSource.Play();
                 _UIManager.UpdateAmmo(_currentAmmo);
             }
         }
@@ -135,15 +140,15 @@ public class Player : MonoBehaviour
         if (!_powerupTripleShot)
         {
             Instantiate(_laser, new Vector3(0, 0.8f, 0) + transform.position, Quaternion.identity);
-            audioSource.clip = _laserAudio;
-            audioSource.Play();
+            _audioSource.clip = _laserAudio;
+            _audioSource.Play();
         }
         else if (_powerupTripleShot)
         {
             Instantiate(_tripleShot, new Vector3(0, 0.0f, 0) + transform.position, Quaternion.identity);
-            audioSource.clip = _laserAudio;
-            audioSource.PlayOneShot(audioSource.clip);
-            audioSource.PlayDelayed(0.1f);
+            _audioSource.clip = _laserAudio;
+            _audioSource.PlayOneShot(_audioSource.clip);
+            _audioSource.PlayDelayed(0.1f);
         }
     }
 
@@ -168,13 +173,11 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(gameObject, Explode.length);
         }
+                
+        _animator.SetTrigger("Damaged");
 
-        Animator _anim = this.GetComponent<Animator>();
-        if (_anim == null) { Debug.Log("error anim is null"); }
-        _anim.SetTrigger("Damaged");
-
-        audioSource.clip = _explodeAudio;
-        audioSource.Play();
+        _audioSource.clip = _explodeAudio;
+        _audioSource.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -186,8 +189,8 @@ public class Player : MonoBehaviour
                 _powerupSpeed = false;
                 _powerupTripleShot = true;
                 StartCoroutine(PowerupTimerRoutine());
-                audioSource.clip = _powerupAudio;
-                audioSource.Play();
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();
                 break;
             case "Speed":
                 Destroy(other.gameObject);
@@ -195,15 +198,15 @@ public class Player : MonoBehaviour
                 _powerupSpeed = true;
                 _thrusterSpeed = _speedBoosted;
                 StartCoroutine(PowerupTimerRoutine());                
-                audioSource.clip = _powerupAudio;
-                audioSource.Play();
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();
                 break;
             case "ShieldPowerup":
                 Destroy(other.gameObject);
                 GameObject ActiveShield = Instantiate(_shield, this.transform.position, Quaternion.identity, this.transform);
                 ActiveShield.transform.SetParent(this.transform);
-                audioSource.clip = _powerupAudio;
-                audioSource.Play();
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();
                 break;
             case "EnemyLaser":
                 TakeDamage();
@@ -212,8 +215,19 @@ public class Player : MonoBehaviour
                 Destroy(other.gameObject);
                 _currentAmmo = _maxAmmo;
                 _UIManager.UpdateAmmo(_currentAmmo);
-                audioSource.clip = _powerupAudio;
-                audioSource.Play();
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();
+                break;
+            case "Health":
+                Destroy(other.gameObject);
+                if (_health < _maxHealth) 
+                { 
+                    _health += 1;
+                    _UIManager.UpdateHealth(_health);
+                    _animator.SetTrigger("Healed");
+                }                
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();                
                 break;
         }
     }
