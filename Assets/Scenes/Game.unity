@@ -1362,7 +1362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1279579149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1493,6 +1493,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c586f7e8a04355445934bd63e4e4dfe3, type: 3}
+--- !u!1 &1299844744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299844747}
+  - component: {fileID: 1299844746}
+  - component: {fileID: 1299844745}
+  m_Layer: 5
+  m_Name: Ammo_Display_img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1299844745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299844744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1299844746
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299844744}
+  m_CullTransparentMesh: 1
+--- !u!224 &1299844747
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299844744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1728949253}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 36, y: -33.1}
+  m_SizeDelta: {x: 50, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1306659026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,6 +2262,7 @@ RectTransform:
   - {fileID: 1513039018}
   - {fileID: 295957537}
   - {fileID: 1909401675}
+  - {fileID: 1299844747}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2208,11 +2284,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heartDisplay: {fileID: 1279579150}
+  _ammoDisplay: {fileID: 1299844745}
   _heartSprites:
   - {fileID: 21300000, guid: 07f6e303f19f1984aa14545124bf657a, type: 3}
   - {fileID: 21300000, guid: 372771d613c2da5438b798bf229e8d4f, type: 3}
   - {fileID: 21300000, guid: 052d50b69013be7409768dd2339e0258, type: 3}
   - {fileID: 21300000, guid: aa70f6c493870ea42bba812f0ebb0139, type: 3}
+  _ammoSprites:
+  - {fileID: 21300000, guid: 698c8d6ae1e84e04c9a3a017aae6ddd7, type: 3}
+  - {fileID: 21300000, guid: 4526116181cf50e48977d889eeb2345d, type: 3}
+  - {fileID: 21300000, guid: 5c4b3d48847c4d541bd74ef9b98ed133, type: 3}
+  - {fileID: 21300000, guid: 5a88565460f513a478a78cc54188da30, type: 3}
+  - {fileID: 21300000, guid: ecb55fe15631fe640823bc70b6223d3b, type: 3}
+  - {fileID: 21300000, guid: 10fc3ec8457f77949af933fa767d6642, type: 3}
+  - {fileID: 21300000, guid: f350445a77d630e46baeb65fc0cd7502, type: 3}
+  - {fileID: 21300000, guid: 6c87c072d78059f43b18aba6a135f4e0, type: 3}
+  - {fileID: 21300000, guid: 0166b341381adf04f827ec7cb8d73f29, type: 3}
+  - {fileID: 21300000, guid: 6721befc64fbdd5499d9a604adcb5008, type: 3}
+  - {fileID: 21300000, guid: d7b0477abd794e140a472ab9f5031872, type: 3}
+  - {fileID: 21300000, guid: b2f88a981ffb4cf42b97b36aace94786, type: 3}
+  - {fileID: 21300000, guid: 6159644f8976ac943b750f21d237d39f, type: 3}
+  - {fileID: 21300000, guid: 107e201f31e9db141b515f9a6b2a441f, type: 3}
+  - {fileID: 21300000, guid: f8c3f284471a7ca42aa7e52bfa0966b4, type: 3}
+  - {fileID: 21300000, guid: 07f3f621c81326847bb65de1363cf4a0, type: 3}
   _gameOverText: {fileID: 1903181577}
   _restartText: {fileID: 549998516}
   _livesDisplay: {fileID: 1279579148}
@@ -2578,6 +2672,10 @@ PrefabInstance:
       propertyPath: Explode
       value: 
       objectReference: {fileID: 7400000, guid: 6649de20ebecda74cb25e4152ad00e79, type: 2}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _outOfAmmo
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a8f1bdd060ed4048bcd01d7df5fbbfe, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _speedParticle
       value: 

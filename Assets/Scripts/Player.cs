@@ -25,7 +25,10 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip _explodeAudio;
     [SerializeField] AudioClip _laserAudio;
     [SerializeField] AudioClip _powerupAudio;
+    [SerializeField] AudioClip _outOfAmmo;
     private AudioSource audioSource;
+    [SerializeField] int _maxAmmo = 15;
+    [SerializeField] int _currentAmmo = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -111,8 +114,19 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && Time.time - _lastFired > _fireRate && _UIManager.GetComponent<UIManager>().gamestarted)
         {
-            _lastFired = Time.time;
-            FireWeapon();
+            if (_currentAmmo > 0)
+            {
+                _lastFired = Time.time;
+                FireWeapon();
+                _currentAmmo -= 1;
+                _UIManager.UpdateAmmo(_currentAmmo);
+            } 
+            else if (_currentAmmo == 0)
+            {
+                audioSource.clip = _outOfAmmo;
+                audioSource.Play();
+                _UIManager.UpdateAmmo(_currentAmmo);
+            }
         }
     }
 

@@ -7,12 +7,15 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private int _score = 0;
-    [SerializeField] private Image _heartDisplay;
+    [SerializeField] private Image _heartImage;
+    [SerializeField] private Image _ammoImage;
     [SerializeField] private Sprite[] _heartSprites;
+    [SerializeField] private Sprite[] _ammoSprites;
     [SerializeField] private GameObject _gameOverText;
     [SerializeField] private GameObject _restartText;
 
     [SerializeField] private GameObject _livesDisplay;
+    [SerializeField] private GameObject _ammoDisplay;
     [SerializeField] private GameObject _scoreText;
     [SerializeField] private GameObject _spawnManager;
     [SerializeField] private GameObject _player;
@@ -48,6 +51,7 @@ public class UIManager : MonoBehaviour
             _startText.SetActive(false);
 
             _livesDisplay.SetActive(true);
+            _ammoDisplay.SetActive(true);
             _scoreText.SetActive(true);
             _player.SetActive(true);
             gamestarted = true;
@@ -75,7 +79,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealth(int CurrentHealth)
     {
-        _heartDisplay.sprite = _heartSprites[CurrentHealth];
+        _heartImage.sprite = _heartSprites[CurrentHealth];
+    }
+    
+    public void UpdateAmmo(int CurrentAmmo)
+    {
+        _ammoImage.sprite = _ammoSprites[CurrentAmmo];
     }
 
     public void GameOver(bool GameOver)
