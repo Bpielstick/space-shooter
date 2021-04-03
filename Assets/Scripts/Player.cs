@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool _thrustRegenerationEnabled = true;
     [SerializeField] private int _maxThrustCooldown = 2;
     [SerializeField] private int _thrustCooldownTime = 2;
-
+    private Camera _camera;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _lastFired = Time.time;
 
+        _camera = Camera.main;
         _canvas = GameObject.Find("Canvas");
         _UIManager = _canvas.GetComponent<UIManager>();
         _UIManager.UpdateHealth(_health);
@@ -129,7 +130,6 @@ public class Player : MonoBehaviour
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
             gameObject.transform.GetChild(3).gameObject.SetActive(false);
         }
-
     }
 
     private void FireButtonListener()
@@ -209,9 +209,21 @@ public class Player : MonoBehaviour
         }
 
         _animator.SetTrigger("Damaged");
-
+        StartCoroutine(CameraShakeRoutine());
+        
         _audioSource.clip = _explodeAudio;
         _audioSource.Play();
+    }
+
+    private IEnumerator CameraShakeRoutine()
+    {
+        _camera.transform.position = new Vector3(0.1f, 1, -10);
+        yield return new WaitForSeconds(0.1f);
+        _camera.transform.position = new Vector3(-0.1f, 1, -10);
+        yield return new WaitForSeconds(0.1f);
+        _camera.transform.position = new Vector3(0, 1, -10);
+
+        yield break;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -334,5 +346,4 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
-
 }
