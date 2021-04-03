@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _livesDisplay;
     [SerializeField] private GameObject _ammoDisplay;
+    [SerializeField] private GameObject _thrustBarDisplay;
     [SerializeField] private GameObject _scoreText;
     [SerializeField] private GameObject _spawnManager;
     [SerializeField] private GameObject _player;
@@ -28,11 +30,13 @@ public class UIManager : MonoBehaviour
 
     private bool _gameover = false;
     public bool gamestarted = false;
+    [SerializeField] Slider _thrustBarSlider;
+    [SerializeField] private float _thrust = 1;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -52,9 +56,11 @@ public class UIManager : MonoBehaviour
 
             _livesDisplay.SetActive(true);
             _ammoDisplay.SetActive(true);
+            _thrustBarDisplay.SetActive(true);
             _scoreText.SetActive(true);
-            _player.SetActive(true);
+            _player.SetActive(true);            
             gamestarted = true;
+            StartCoroutine(ThrustBarRoutine());
         }
 
         if (Input.GetKey("escape"))
@@ -66,6 +72,21 @@ public class UIManager : MonoBehaviour
         {
             _spawnManager.SetActive(true);
         }
+    }
+
+    private IEnumerator ThrustBarRoutine()
+    {
+        while (true)
+        {
+            _thrustBarSlider.value = (float)Math.Round(_thrust,2);
+            yield return new WaitForSeconds(0.3f);
+        }
+        
+    }
+
+    public void SetThrust (float NewThrust)
+    {
+        _thrust = NewThrust;
     }
 
     public void AddScore(int ScoreToAdd)

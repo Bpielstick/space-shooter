@@ -34,6 +34,14 @@ public class Player : MonoBehaviour
     [SerializeField] private int _currentAmmo = 15;
     private Animator _animator;
     [SerializeField] private bool _missilesActive = false;
+    [SerializeField] private int _maxThrust = 10;
+    [SerializeField] private float _currentThrust = 10;
+    [SerializeField] private float _thrustBurnRate = 2;
+    [SerializeField] private float _thrustRegenerationRate = 1;
+    [SerializeField] private bool _thrustRegenerationEnabled = true;
+    [SerializeField] private int _maxThrustCooldown = 2;
+    [SerializeField] private int _thrustCooldownTime = 2;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +58,8 @@ public class Player : MonoBehaviour
         if (_audioSource == null) { Debug.Log("error audio is null"); }
         _animator = GetComponent<Animator>();
         if (_animator == null) { Debug.Log("error animator is null"); }
+
+        StartCoroutine(ThrustManagerRoutine());
     }
 
     // Update is called once per frame
@@ -57,6 +67,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         FireButtonListener();
+        _UIManager.SetThrust(_currentThrust / _maxThrust);
     }
 
     private void CalculateMovement()
@@ -65,16 +76,19 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        if (Input.GetButton("Fire3"))
+        if (Input.GetButton("Fire3") && _currentThrust > 0)
         {
             transform.Translate(direction * _thrusterSpeed * Time.deltaTime);
+            _currentThrust -= _thrustBurnRate * Time.deltaTime;
+            _thrustRegenerationEnabled = false;
+            _thrustCooldownTime = _maxThrustCooldown;
         }
         else
         {
             transform.Translate(direction * _currentSpeed * Time.deltaTime);
         }
 
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") && _currentThrust > 0)
         {
             StartCoroutine(SpeedParticleRoutine());
         }
@@ -122,18 +136,26 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && Time.time - _lastFired > _fireRate && _UIManager.GetComponent<UIManager>().gamestarted)
         {
-            if (_currentAmmo > 0)
+            if (_powerupTripleShot)
             {
                 _lastFired = Time.time;
                 FireWeapon();
-                _currentAmmo -= 1;
-                _UIManager.UpdateAmmo(_currentAmmo);
             }
-            else if (_currentAmmo == 0)
+            else
             {
-                _audioSource.clip = _outOfAmmo;
-                _audioSource.Play();
-                _UIManager.UpdateAmmo(_currentAmmo);
+                if (_currentAmmo > 0)
+                {
+                    _lastFired = Time.time;
+                    FireWeapon();
+                    _currentAmmo -= 1;
+                    _UIManager.UpdateAmmo(_currentAmmo);
+                }
+                else if (_currentAmmo == 0)
+                {
+                    _audioSource.clip = _outOfAmmo;
+                    _audioSource.Play();
+                    _UIManager.UpdateAmmo(_currentAmmo);
+                }
             }
         }
     }
@@ -268,7 +290,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator SpeedParticleRoutine()
     {
-        while (Input.GetButton("Fire3"))
+        while (Input.GetButton("Fire3") && _currentThrust > 0)
         {
             if (_powerupSpeed)
             {
@@ -283,6 +305,34 @@ public class Player : MonoBehaviour
             
         }
 
+    }
+
+    private IEnumerator ThrustManagerRoutine()
+    {
+        while (true)
+        {            
+            if (!_thrustRegenerationEnabled && _thrustCooldownTime > 0)
+            {
+                _thrustCooldownTime -= 1;
+            }
+            if (_thrustCooldownTime == 0)
+            {
+                _thrustRegenerationEnabled = true;
+            }
+            if (_thrustRegenerationEnabled && _currentThrust < _maxThrust)
+            {
+                _currentThrust += _thrustRegenerationRate;
+            }
+            if (_currentThrust > _maxThrust)
+            {
+                _currentThrust = _maxThrust;
+            }
+            if (_currentThrust < 0)
+            {
+                _currentThrust = 0;
+            }
+            yield return new WaitForSeconds(1);
+        }
     }
 
 }
