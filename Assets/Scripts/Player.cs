@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int _maxThrustCooldown = 2;
     [SerializeField] private int _thrustCooldownTime = 2;
     private Camera _camera;
+    [SerializeField] private bool invulnerability;
 
     // Start is called before the first frame update
     void Start()
@@ -188,31 +189,34 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (_health > 1)
+        if (!invulnerability)
         {
-            _health--;
-            _UIManager.UpdateHealth(_health);
-        }
-        else if (_health == 1)
-        {
-            _health--;
-            _UIManager.UpdateHealth(_health);
-            _UIManager.GameOver(true);
-            _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
-
-            if (_spawnManager == null)
+            if (_health > 1)
             {
-                Debug.LogError("spawn manager not found");
+                _health--;
+                _UIManager.UpdateHealth(_health);
             }
-            _spawnManager.OnPlayerDeath();
-            Destroy(gameObject, Explode.length);
-        }
+            else if (_health == 1)
+            {
+                _health--;
+                _UIManager.UpdateHealth(_health);
+                _UIManager.GameOver(true);
+                _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 
-        _animator.SetTrigger("Damaged");
-        StartCoroutine(CameraShakeRoutine());
-        
-        _audioSource.clip = _explodeAudio;
-        _audioSource.Play();
+                if (_spawnManager == null)
+                {
+                    Debug.LogError("spawn manager not found");
+                }
+                _spawnManager.OnPlayerDeath();
+                Destroy(gameObject, Explode.length);
+            }
+
+            _animator.SetTrigger("Damaged");
+            StartCoroutine(CameraShakeRoutine());
+
+            _audioSource.clip = _explodeAudio;
+            _audioSource.Play();
+        }
     }
 
     private IEnumerator CameraShakeRoutine()

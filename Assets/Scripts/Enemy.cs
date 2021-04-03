@@ -30,31 +30,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(0, 1, 0) * -_speed * Time.deltaTime, Space.World);
-        if (transform.position.y < -8)
-        {
-            //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
-            Destroy(gameObject);
-        }
-
-        if (_player != null)
-        {
-            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.5 && !_hasfired && !_dying && UnityEngine.Random.Range(1, 3) > 1)
-            {
-                if (transform.position.x > _player.transform.position.x)
-                {
-                    Instantiate(_leftlaser, new Vector3(-0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
-                    _audioSource.PlayOneShot(_laserAudio);
-                    _hasfired = true;
-                }
-                else if (transform.position.x < _player.transform.position.x)
-                {
-                    Instantiate(_rightlaser, new Vector3(0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
-                    _audioSource.PlayOneShot(_laserAudio);
-                    _hasfired = true;
-                }
-            }
-        }
+        Move();
+        Shoot();       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -108,4 +85,64 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, Explode.length);
     }
 
+    private void Move()
+    {
+        transform.Translate(new Vector3(0, 1, 0) * -_speed * Time.deltaTime, Space.World);
+        if (transform.position.y < -8)
+        {
+            //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
+            Destroy(gameObject);
+        }
+        
+        RaycastHit2D hitleft = Physics2D.Raycast(new Vector2 (transform.position.x - 1, transform.position.y - 1), Vector2.left, 1f);
+                                    //Debug.DrawRay(new Vector2(transform.position.x - 1, transform.position.y - 1), Vector2.left, Color.red, 0.1f, false);
+        RaycastHit2D hitright = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y - 1), Vector2.right, 1f);
+                                    //Debug.DrawRay(new Vector2(transform.position.x + 1, transform.position.y - 1), Vector2.right, Color.red, 0.1f, false);
+        
+
+        if (_player != null )
+        {
+            if (!hitleft && !hitright)
+            {
+                if (transform.position.x > _player.transform.position.x)
+                {
+                    transform.Translate(new Vector3(0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+                }
+                else if (transform.position.x < _player.transform.position.x)
+                {
+                    transform.Translate(new Vector3(-0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+                }
+            }
+            else if (hitleft)
+            {
+                transform.Translate(new Vector3(-0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+            }
+            else if (hitright)
+            {
+                transform.Translate(new Vector3(0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+            }
+        }
+    }
+
+    private void Shoot()
+    {
+        if (_player != null)
+        {
+            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.5 && !_hasfired && !_dying && UnityEngine.Random.Range(1, 3) > 1)
+            {
+                if (transform.position.x > _player.transform.position.x)
+                {
+                    Instantiate(_leftlaser, new Vector3(-0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    _audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+                else if (transform.position.x < _player.transform.position.x)
+                {
+                    Instantiate(_rightlaser, new Vector3(0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    _audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+            }
+        }
+    }
 }
