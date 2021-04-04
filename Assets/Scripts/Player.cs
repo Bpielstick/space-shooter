@@ -261,6 +261,10 @@ public class Player : MonoBehaviour
                 _audioSource.Play();
                 break;
             case "EnemyLaser":
+                Destroy(other.gameObject);
+                TakeDamage();
+                break;
+            case "BeamLaser":
                 TakeDamage();
                 break;
             case "Ammo":

@@ -1095,6 +1095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 5472141035448685452, guid: 0630810147f455748a27269dc8f86bad, type: 3}
+  _beamEnemy: {fileID: 4763389121165715264, guid: 97f951d0f7ffd9e468fcb00218209d63, type: 3}
+  _asteroid: {fileID: 6675251844922204511, guid: 16cd50c03343ff54b9d28d76a59e6825, type: 3}
   powerups:
   - {fileID: 3864806976638038471, guid: b5d4fd2bf5a81b94ea5427ceda927a40, type: 3}
   - {fileID: 92552684833778415, guid: d65041fc54fcf514bbbec092fa1aa2bd, type: 3}
@@ -1104,7 +1106,6 @@ MonoBehaviour:
   - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
   - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
   _container: {fileID: 1513578747}
-  _spawnRate: 1
   _powerupRate: 6
 --- !u!4 &941004543
 Transform:

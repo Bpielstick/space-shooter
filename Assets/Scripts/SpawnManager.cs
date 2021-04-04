@@ -5,11 +5,12 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
+    [SerializeField] private GameObject _beamEnemy;
+    [SerializeField] private GameObject _asteroid;
     [SerializeField] GameObject[] powerups;
     [SerializeField] GameObject[] resourcePowerups;
     [SerializeField] private GameObject _container;
     private bool _stopSpawning = false;
-    [SerializeField] private float _spawnRate = 1.0f;
     [SerializeField] private float _powerupRate = 6.0f;
     private int _waveOneSize = 10;
     private int _waveTwoSize = 20;
@@ -28,7 +29,6 @@ public class SpawnManager : MonoBehaviour
         
 
         StartCoroutine(SpawnRoutine());
-        StartCoroutine(IncreaseSpawnRate());
         StartCoroutine(SpawnPowerupRoutine());
         StartCoroutine(SpawnResourcePowerupRoutine());
         this.enabled = true;
@@ -90,12 +90,25 @@ public class SpawnManager : MonoBehaviour
         int spawncount =0;
         while (!_stopSpawning)
         {
-            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-            newObject.transform.parent = _container.transform;
+            int spawnchance = Random.Range(1, 10);
+            if (spawnchance < 2)
+            {
+                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            
             yield return new WaitForSeconds(0.5f);
             spawncount += 1;
             if (spawncount >= _waveOneSize)
             {
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnAsteroids());
+                yield return new WaitForSeconds(2);
                 _UIManager.UpdateWave(2);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveTwoRoutine());
@@ -109,12 +122,25 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-            newObject.transform.parent = _container.transform;
+            int spawnchance = Random.Range(1, 10);
+            if (spawnchance < 2)
+            {
+                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+
             yield return new WaitForSeconds(0.4f);
             spawncount += 1;
             if (spawncount >= _waveTwoSize)
             {
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnAsteroids());
+                yield return new WaitForSeconds(2);
                 _UIManager.UpdateWave(3);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveThreeRoutine());
@@ -128,12 +154,24 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-            newObject.transform.parent = _container.transform;
+            int spawnchance = Random.Range(1, 10);
+            if (spawnchance < 2)
+            {
+                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
             yield return new WaitForSeconds(0.3f);
             spawncount += 1;
             if (spawncount >= _waveThreeSize)
             {
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnAsteroids());
+                yield return new WaitForSeconds(2);
                 _UIManager.UpdateWave(4);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveFourRoutine());
@@ -147,12 +185,24 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-            newObject.transform.parent = _container.transform;
+            int spawnchance = Random.Range(1, 10);
+            if (spawnchance < 2)
+            {
+                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
             yield return new WaitForSeconds(0.2f);
             spawncount += 1;
             if (spawncount >= _waveFourSize)
             {
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnAsteroids());
+                yield return new WaitForSeconds(2);
                 _UIManager.UpdateWave(5);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveFiveRoutine());
@@ -166,8 +216,17 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-            newObject.transform.parent = _container.transform;
+            int spawnchance = Random.Range(1, 10);
+            if (spawnchance < 2)
+            {
+                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
+            else
+            {
+                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            }
             yield return new WaitForSeconds(0.1f);
             spawncount += 1;
             if (spawncount >= _waveFiveSize)
@@ -177,13 +236,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator IncreaseSpawnRate()
+    private IEnumerator SpawnAsteroids()
     {
-        while (_spawnRate > 0.1f)
+        int i = 0;
+        while (i < 5)
         {
-            _spawnRate -= 0.1f;
-            yield return new WaitForSeconds(10);
+            i++;
+            GameObject newObject = Instantiate(_asteroid, new Vector3(Random.Range(-5, 6), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+            yield return new WaitForSeconds(0.7f);            
         }
+        yield break;
     }
 
     public void OnPlayerDeath()

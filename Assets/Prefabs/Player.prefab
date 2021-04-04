@@ -469,14 +469,29 @@ MonoBehaviour:
   _thrusterSpeed: 10
   _laser: {fileID: 2729993133765313384, guid: 9e14a1f93cd0a20488d2278311436138, type: 3}
   _tripleShot: {fileID: 159044594214870709, guid: baead0dfd3d060548bf963b6f08d1b56, type: 3}
+  _missile: {fileID: 0}
   _shield: {fileID: 8895584650543936837, guid: 1ce4bf5eebd57f5448d2f2dcbd933987, type: 3}
   _fireRate: 0.2
   _health: 3
+  _maxHealth: 3
   _speedParticle: {fileID: 1579586803099290189, guid: 409c14da48ea8d74683c1a59b9e9863d, type: 3}
   Explode: {fileID: 7400000, guid: 6649de20ebecda74cb25e4152ad00e79, type: 2}
   _explodeAudio: {fileID: 8300000, guid: 65a9d99c253dbba44bdd75d27cafb4fc, type: 3}
   _laserAudio: {fileID: 8300000, guid: 07b14cdea5fc15a41993404831c198e8, type: 3}
+  _missileAudio: {fileID: 0}
   _powerupAudio: {fileID: 8300000, guid: 6bc1064fbd038ea43b372d0296270b76, type: 3}
+  _outOfAmmo: {fileID: 0}
+  _maxAmmo: 15
+  _currentAmmo: 15
+  _missilesActive: 0
+  _maxThrust: 10
+  _currentThrust: 10
+  _thrustBurnRate: 2
+  _thrustRegenerationRate: 1
+  _thrustRegenerationEnabled: 1
+  _maxThrustCooldown: 2
+  _thrustCooldownTime: 2
+  invulnerability: 1
 --- !u!212 &8613393914219732445
 SpriteRenderer:
   m_ObjectHideFlags: 0
