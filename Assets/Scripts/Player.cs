@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && Time.time - _lastFired > _fireRate && _UIManager.GetComponent<UIManager>().gamestarted)
         {
-            if (_powerupTripleShot)
+            if (_powerupTripleShot || _missilesActive)
             {
                 _lastFired = Time.time;
                 FireWeapon();
@@ -230,6 +230,65 @@ public class Player : MonoBehaviour
         yield break;
     }
 
+    private IEnumerator PowerupTimerRoutine()
+    {
+        while (_powerupTripleShot || _powerupSpeed || _missilesActive)
+        {
+            yield return new WaitForSeconds(5);
+            _powerupTripleShot = false;
+            _powerupSpeed = false;
+            _thrusterSpeed = _baseThrusterSpeed;
+            _missilesActive = false;
+        }
+    }
+
+    private IEnumerator SpeedParticleRoutine()
+    {
+        while (Input.GetButton("Fire3") && _currentThrust > 0)
+        {
+            if (_powerupSpeed)
+            {
+                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
+                yield return new WaitForSeconds(0.01f);
+            }
+            else
+            {
+                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
+                yield return new WaitForSeconds(0.04f);
+            }
+            
+        }
+
+    }
+
+    private IEnumerator ThrustManagerRoutine()
+    {
+        while (true)
+        {            
+            if (!_thrustRegenerationEnabled && _thrustCooldownTime > 0)
+            {
+                _thrustCooldownTime -= 1;
+            }
+            if (_thrustCooldownTime == 0)
+            {
+                _thrustRegenerationEnabled = true;
+            }
+            if (_thrustRegenerationEnabled && _currentThrust < _maxThrust)
+            {
+                _currentThrust += _thrustRegenerationRate;
+            }
+            if (_currentThrust > _maxThrust)
+            {
+                _currentThrust = _maxThrust;
+            }
+            if (_currentThrust < 0)
+            {
+                _currentThrust = 0;
+            }
+            yield return new WaitForSeconds(1);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)
@@ -302,65 +361,6 @@ public class Player : MonoBehaviour
                 _audioSource.clip = _powerupAudio;
                 _audioSource.Play();
                 break;
-        }
-    }
-
-    private IEnumerator PowerupTimerRoutine()
-    {
-        while (_powerupTripleShot || _powerupSpeed || _missilesActive)
-        {
-            yield return new WaitForSeconds(5);
-            _powerupTripleShot = false;
-            _powerupSpeed = false;
-            _thrusterSpeed = _baseThrusterSpeed;
-            _missilesActive = false;
-        }
-    }
-
-    private IEnumerator SpeedParticleRoutine()
-    {
-        while (Input.GetButton("Fire3") && _currentThrust > 0)
-        {
-            if (_powerupSpeed)
-            {
-                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
-                yield return new WaitForSeconds(0.01f);
-            }
-            else
-            {
-                Instantiate(_speedParticle, new Vector3(transform.position.x + UnityEngine.Random.Range(0.2f, -0.2f), transform.position.y - UnityEngine.Random.Range(0.2f, 0.4f), 0), Quaternion.identity);
-                yield return new WaitForSeconds(0.04f);
-            }
-            
-        }
-
-    }
-
-    private IEnumerator ThrustManagerRoutine()
-    {
-        while (true)
-        {            
-            if (!_thrustRegenerationEnabled && _thrustCooldownTime > 0)
-            {
-                _thrustCooldownTime -= 1;
-            }
-            if (_thrustCooldownTime == 0)
-            {
-                _thrustRegenerationEnabled = true;
-            }
-            if (_thrustRegenerationEnabled && _currentThrust < _maxThrust)
-            {
-                _currentThrust += _thrustRegenerationRate;
-            }
-            if (_currentThrust > _maxThrust)
-            {
-                _currentThrust = _maxThrust;
-            }
-            if (_currentThrust < 0)
-            {
-                _currentThrust = 0;
-            }
-            yield return new WaitForSeconds(1);
         }
     }
 }

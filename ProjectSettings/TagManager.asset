@@ -16,6 +16,8 @@ TagManager:
   - Missile
   - MissilePowerup
   - MissileExplosion
+  - BeamLaser
+  - BadPowerup
   layers:
   - Default
   - TransparentFX

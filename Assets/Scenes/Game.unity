@@ -1104,7 +1104,15 @@ MonoBehaviour:
   - {fileID: 6632425291873549610, guid: b91b1aab4b76ad34ba27892d654f6645, type: 3}
   resourcePowerups:
   - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
+  - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
+  - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
+  - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
+  - {fileID: 6875190367540495859, guid: 6f8808d76b3bed0499e68ac591d17d26, type: 3}
   - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
+  - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
+  - {fileID: 688328828896042, guid: 14b073b5cb1b37c4e801244ed3643a66, type: 3}
+  - {fileID: 7222006215489004455, guid: fc4b6a5b45027ad429880354f3c9bfdb, type: 3}
+  - {fileID: 7222006215489004455, guid: fc4b6a5b45027ad429880354f3c9bfdb, type: 3}
   _container: {fileID: 1513578747}
   _powerupRate: 6
 --- !u!4 &941004543
@@ -2293,6 +2301,8 @@ GameObject:
   - component: {fileID: 1728949251}
   - component: {fileID: 1728949250}
   - component: {fileID: 1728949254}
+  - component: {fileID: 1728949256}
+  - component: {fileID: 1728949255}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2442,6 +2452,76 @@ MonoBehaviour:
   gamestarted: 0
   _thrustBarSlider: {fileID: 1799539266}
   _thrust: 1
+--- !u!212 &1728949255
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728949249}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.55, y: 0.55}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!95 &1728949256
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728949249}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eb70e3a112adb2849aae253a21db6f84, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1799539265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2994,6 +3074,10 @@ PrefabInstance:
       objectReference: {fileID: 1579586803099290189, guid: 409c14da48ea8d74683c1a59b9e9863d, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _missilesActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: invulnerability
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
