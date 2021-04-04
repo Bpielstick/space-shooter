@@ -20,11 +20,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _missileExplosion;
     private bool _hasfired = false;
     private bool _dying = false;
+    [SerializeField] private GameObject _enemyShield;
 
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _player = GameObject.FindGameObjectWithTag("Player");
+
+        if (UnityEngine.Random.Range(1,5) < 2)
+        {
+            GameObject ActiveShield = Instantiate(_enemyShield, this.transform.position + new Vector3(0,-0.6f,0), Quaternion.identity, this.transform);
+            ActiveShield.transform.SetParent(this.transform);
+        }    
     }
 
     // Update is called once per frame

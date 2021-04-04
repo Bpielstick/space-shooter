@@ -56,7 +56,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnResourcePowerupRoutine()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         while (!_stopSpawning)
         {
             GameObject PowerupToSpawn = resourcePowerups[Random.Range(0, resourcePowerups.Length)];

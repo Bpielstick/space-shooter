@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47271c93bb8a3c94f87fd6e583c22312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 5
   Explode: {fileID: 7400000, guid: 0d4454c724b2f8b42b7686135441a884, type: 2}
   ScoreValue: 100
   _explodeAudio: {fileID: 8300000, guid: 65a9d99c253dbba44bdd75d27cafb4fc, type: 3}
@@ -58,6 +58,7 @@ MonoBehaviour:
   _rightlaser: {fileID: 4878354523501774011, guid: db57523b9b49a3740b8219373c6eba17, type: 3}
   _laserAudio: {fileID: 8300000, guid: 07b14cdea5fc15a41993404831c198e8, type: 3}
   _missileExplosion: {fileID: 6161845864564840571, guid: a2e3146a83dd35743a4846dbd721f507, type: 3}
+  _enemyShield: {fileID: 3175049760385640769, guid: 96ed5448fea00ae458e02073fbe8f513, type: 3}
 --- !u!212 &-3924649608446157074
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.5
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
