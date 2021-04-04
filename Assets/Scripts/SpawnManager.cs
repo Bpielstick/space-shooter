@@ -11,11 +11,22 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawning = false;
     [SerializeField] private float _spawnRate = 1.0f;
     [SerializeField] private float _powerupRate = 6.0f;
+    private int _waveOneSize = 10;
+    private int _waveTwoSize = 20;
+    private int _waveThreeSize = 30;
+    private int _waveFourSize = 40;
+    private int _waveFiveSize = 50;
+    private GameObject _canvas;
+    private UIManager _UIManager;
     //explosion powerup
 
     // Start is called before the first frame update
     void Start()
     {
+        _canvas = GameObject.Find("Canvas");
+        _UIManager = _canvas.GetComponent<UIManager>();
+        
+
         StartCoroutine(SpawnRoutine());
         StartCoroutine(IncreaseSpawnRate());
         StartCoroutine(SpawnPowerupRoutine());
@@ -67,13 +78,103 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
+        _UIManager.UpdateWave(1);
+        yield return new WaitForSeconds(5);
+        StartCoroutine(WaveOneRoutine());
+        yield break;
+    }
+
+    private IEnumerator WaveOneRoutine()
+    {
+        int spawncount =0;
         while (!_stopSpawning)
         {
             GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
             newObject.transform.parent = _container.transform;
-            yield return new WaitForSeconds(_spawnRate);
-        }    
+            yield return new WaitForSeconds(0.5f);
+            spawncount += 1;
+            if (spawncount >= _waveOneSize)
+            {
+                _UIManager.UpdateWave(2);
+                yield return new WaitForSeconds(5);
+                StartCoroutine(WaveTwoRoutine());
+                yield break;
+            }
+        }
+    }
+
+    private IEnumerator WaveTwoRoutine()
+    {
+        int spawncount = 0;
+        while (!_stopSpawning)
+        {
+            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+            yield return new WaitForSeconds(0.4f);
+            spawncount += 1;
+            if (spawncount >= _waveTwoSize)
+            {
+                _UIManager.UpdateWave(3);
+                yield return new WaitForSeconds(5);
+                StartCoroutine(WaveThreeRoutine());
+                yield break;
+            }
+        }
+    }
+
+    private IEnumerator WaveThreeRoutine()
+    {
+        int spawncount = 0;
+        while (!_stopSpawning)
+        {
+            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+            yield return new WaitForSeconds(0.3f);
+            spawncount += 1;
+            if (spawncount >= _waveThreeSize)
+            {
+                _UIManager.UpdateWave(4);
+                yield return new WaitForSeconds(5);
+                StartCoroutine(WaveFourRoutine());
+                yield break;
+            }
+        }
+    }
+
+    private IEnumerator WaveFourRoutine()
+    {
+        int spawncount = 0;
+        while (!_stopSpawning)
+        {
+            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+            yield return new WaitForSeconds(0.2f);
+            spawncount += 1;
+            if (spawncount >= _waveFourSize)
+            {
+                _UIManager.UpdateWave(5);
+                yield return new WaitForSeconds(5);
+                StartCoroutine(WaveFiveRoutine());
+                yield break;
+            }
+        }
+    }
+
+    private IEnumerator WaveFiveRoutine()
+    {
+        int spawncount = 0;
+        while (!_stopSpawning)
+        {
+            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+            yield return new WaitForSeconds(0.1f);
+            spawncount += 1;
+            if (spawncount >= _waveFiveSize)
+            {
+                //do something here
+            }
+        }
     }
 
     private IEnumerator IncreaseSpawnRate()

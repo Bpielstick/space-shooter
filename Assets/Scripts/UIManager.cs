@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] _ammoSprites;
     [SerializeField] private GameObject _gameOverText;
     [SerializeField] private GameObject _restartText;
+    [SerializeField] private GameObject _waveText;
 
     [SerializeField] private GameObject _livesDisplay;
     [SerializeField] private GameObject _ammoDisplay;
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
             _titleText.SetActive(false);
             _instructionText.SetActive(false);
             _startText.SetActive(false);
+            _waveText.SetActive(false);
 
             _livesDisplay.SetActive(true);
             _ammoDisplay.SetActive(true);
@@ -61,16 +63,13 @@ public class UIManager : MonoBehaviour
             _player.SetActive(true);            
             gamestarted = true;
             StartCoroutine(ThrustBarRoutine());
+
+            _spawnManager.SetActive(true);
         }
 
         if (Input.GetKey("escape"))
         {
             Application.Quit();
-        }
-
-        if (_Asteroid == null) 
-        {
-            _spawnManager.SetActive(true);
         }
     }
 
@@ -136,6 +135,20 @@ public class UIManager : MonoBehaviour
             }            
             yield return new WaitForSeconds(0.5f);
         }
+        yield break;
+    }
+
+    public void UpdateWave(int WaveNumber) 
+    {
+        _waveText.GetComponent<Text>().text = "WAVE " + WaveNumber;
+        StartCoroutine(ShowWaveTextRoutine());
+    }
+
+    private IEnumerator ShowWaveTextRoutine()
+    {
+        _waveText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        _waveText.SetActive(false);
         yield break;
     }
 
