@@ -248,6 +248,7 @@ public class Player : MonoBehaviour
                 _powerupTripleShot = false;
                 _powerupSpeed = true;
                 _thrusterSpeed = _speedBoosted;
+                _currentThrust = _maxThrust;
                 StartCoroutine(PowerupTimerRoutine());
                 _audioSource.clip = _powerupAudio;
                 _audioSource.Play();
@@ -286,6 +287,14 @@ public class Player : MonoBehaviour
                 _missilesActive = true;
                 _powerupTripleShot = false;
                 StartCoroutine(PowerupTimerRoutine());
+                _audioSource.clip = _powerupAudio;
+                _audioSource.Play();
+                break;
+            case "BadPowerup":
+                Destroy(other.gameObject);
+                _currentThrust = 0;
+                _currentAmmo = 0;
+                _UIManager.UpdateAmmo(_currentAmmo);
                 _audioSource.clip = _powerupAudio;
                 _audioSource.Play();
                 break;
