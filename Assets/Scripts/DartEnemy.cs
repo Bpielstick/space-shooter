@@ -16,6 +16,9 @@ public class DartEnemy : MonoBehaviour
     [SerializeField] private GameObject _missileExplosion;
     private bool _dying = false;
     [SerializeField] private GameObject _enemyShield;
+    [SerializeField] private GameObject _laser;
+    [SerializeField] private AudioClip _laserAudio;
+    private bool _hasfired = false;
 
     [SerializeField] private GameObject _collisionAvoidanceTrigger;
     private Vector3 _collisionLocation;
@@ -40,7 +43,7 @@ public class DartEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Shoot();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -150,6 +153,23 @@ public class DartEnemy : MonoBehaviour
             }
 
             yield return null;
+        }
+    }
+
+    private void Shoot()
+    {
+        if (_player != null)
+        {
+            if (Math.Abs(transform.position.x - _player.transform.position.x) < 0.5 && !_hasfired && !_dying)
+            {
+                if (transform.position.y < _player.transform.position.y)
+                {
+                    Instantiate(_laser, new Vector3(0, 0.9f, 0) + transform.position, Quaternion.identity);
+                    _audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+
+            }
         }
     }
 

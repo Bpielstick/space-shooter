@@ -269,4 +269,6 @@ MonoBehaviour:
   _player: {fileID: 8613393914219732446, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
   _missileExplosion: {fileID: 6161845864564840571, guid: a2e3146a83dd35743a4846dbd721f507, type: 3}
   _enemyShield: {fileID: 3175049760385640769, guid: 96ed5448fea00ae458e02073fbe8f513, type: 3}
+  _laser: {fileID: 1294578448736318210, guid: b26bfbe41daa2f94a8d089ba26ef8336, type: 3}
+  _laserAudio: {fileID: 8300000, guid: 07b14cdea5fc15a41993404831c198e8, type: 3}
   _collisionAvoidanceTrigger: {fileID: 7504919585751712293, guid: ca9b99194849e0145b28dd01537baaa3, type: 3}

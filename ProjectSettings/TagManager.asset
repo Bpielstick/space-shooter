@@ -18,6 +18,7 @@ TagManager:
   - MissileExplosion
   - BeamLaser
   - BadPowerup
+  - Trigger
   layers:
   - Default
   - TransparentFX
