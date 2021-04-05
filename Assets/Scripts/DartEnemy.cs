@@ -3,22 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BeamEnemy : MonoBehaviour
+public class DartEnemy : MonoBehaviour
 {
-    //shoot bullets sideways
     [SerializeField] private int _speed;
     GameObject UIManager;
     [SerializeField] AnimationClip Explode;
-    [SerializeField] AnimationClip Fire;
     [SerializeField] int ScoreValue;
     [SerializeField] private AudioClip _explodeAudio;
     [SerializeField] private AudioClip _missileExplodeAudio;
     private AudioSource _audioSource;
-    [SerializeField] private GameObject _beamlaser;
-    [SerializeField] private AudioClip _laserAudio;
+    [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _missileExplosion;
     private bool _dying = false;
-    GameObject _myBeam;
+    [SerializeField] private GameObject _enemyShield;
 
     [SerializeField] private GameObject _collisionAvoidanceTrigger;
     private Vector3 _collisionLocation;
@@ -28,8 +25,16 @@ public class BeamEnemy : MonoBehaviour
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        StartCoroutine(ShootAndMoveRoutine());
+        _player = GameObject.FindGameObjectWithTag("Player");
+
+        if (UnityEngine.Random.Range(1, 5) < 2)
+        {
+            GameObject ActiveShield = Instantiate(_enemyShield, this.transform.position + new Vector3(0, -0.7f, 0), Quaternion.identity, this.transform);
+            ActiveShield.transform.SetParent(this.transform);
+        }
+
         Instantiate(_collisionAvoidanceTrigger, this.transform.position + new Vector3(0, -0.6f, 0), Quaternion.identity, this.transform);
+        StartCoroutine(MoveRoutine());
     }
 
     // Update is called once per frame
@@ -66,7 +71,6 @@ public class BeamEnemy : MonoBehaviour
             _audioSource.Play();
         }
 
-        //Debug.Log("collided with " + other.tag);
         if (other.tag != "Trigger")
         {
             PreDestroy();
@@ -76,7 +80,7 @@ public class BeamEnemy : MonoBehaviour
     private void PreDestroy()
     {
         _dying = true;
-        if (_myBeam != null) { GameObject.Destroy(_myBeam); }
+
         UIManager = GameObject.Find("Canvas");
         UIManager uiManagerComponent = UIManager.transform.GetComponent<UIManager>();
         uiManagerComponent.AddScore(ScoreValue);
@@ -93,14 +97,13 @@ public class BeamEnemy : MonoBehaviour
         Destroy(gameObject, Explode.length);
     }
 
-
-    private IEnumerator ShootAndMoveRoutine()
+    private IEnumerator MoveRoutine()
     {
-        while (transform.position.y > UnityEngine.Random.Range(4, -6))
+        while (true)
         {
             if (_waitToMove)
-            { 
-                yield return new WaitForSeconds(0.5f);
+            {
+                //yield return new WaitForSeconds(0.5f);
                 _waitToMove = false;
             }
 
@@ -125,42 +128,28 @@ public class BeamEnemy : MonoBehaviour
             }
             else
             {
-                transform.Translate(new Vector3(0, -1, 0) * _speed * Time.deltaTime, Space.World);
-                if (transform.position.y < -8)
+                if (_player != null)
                 {
-                    //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
-                    Destroy(gameObject);
+                    if (transform.position.x > _player.transform.position.x)
+                    {
+                        transform.Translate(new Vector3(-1f, 0, 0) * _speed * 0.4f * Time.deltaTime, Space.World);
+                    }
+                    else if (transform.position.x < _player.transform.position.x)
+                    {
+                        transform.Translate(new Vector3(1f, 0, 0) * _speed * 0.4f * Time.deltaTime, Space.World);
+                    }
+
+                    transform.Translate(new Vector3(0, 1, 0) * -_speed * Time.deltaTime, Space.World);
                 }
             }
-            yield return null;
-        }
 
-        Animator _anim = this.GetComponent<Animator>();
-        _anim.SetTrigger("Fire");
-        yield return new WaitForSeconds(Fire.length);
-        Shoot();
-        yield return new WaitForSeconds(3f);
-        _anim.SetTrigger("Idle");
-        yield return new WaitForSeconds(1f);
-
-        while (true)
-        {
-            transform.Translate(new Vector3(0, -1, 0) * _speed * Time.deltaTime, Space.World);
             if (transform.position.y < -8)
             {
                 //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
                 Destroy(gameObject);
             }
-            yield return null;
-        }
-    }
 
-    private void Shoot()
-    {
-        if (!_dying)
-        {
-            _myBeam = Instantiate(_beamlaser, new Vector3(0, -8.4f, 0) + transform.position, Quaternion.identity);
-            _audioSource.PlayOneShot(_laserAudio);
+            yield return null;
         }
     }
 
@@ -176,4 +165,3 @@ public class BeamEnemy : MonoBehaviour
         _avoidCollision = false;
     }
 }
-    

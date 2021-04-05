@@ -4,8 +4,7 @@ using UnityEngine;
 using System;
 
 public class Enemy : MonoBehaviour
-{
-    //shoot bullets sideways
+{   
     [SerializeField] private int _speed;
     GameObject UIManager;
     [SerializeField] AnimationClip Explode;
@@ -22,22 +21,29 @@ public class Enemy : MonoBehaviour
     private bool _dying = false;
     [SerializeField] private GameObject _enemyShield;
 
+    [SerializeField] private GameObject _collisionAvoidanceTrigger;
+    private Vector3 _collisionLocation;
+    private bool _avoidCollision = false;
+    private bool _waitToMove = false;
+
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         _player = GameObject.FindGameObjectWithTag("Player");
 
-        if (UnityEngine.Random.Range(1,5) < 2)
+        if (UnityEngine.Random.Range(1,10) < 2)
         {
             GameObject ActiveShield = Instantiate(_enemyShield, this.transform.position + new Vector3(0,-0.6f,0), Quaternion.identity, this.transform);
             ActiveShield.transform.SetParent(this.transform);
-        }    
+        }
+
+        Instantiate(_collisionAvoidanceTrigger, this.transform.position + new Vector3(0, -0.6f, 0), Quaternion.identity, this.transform);
+        StartCoroutine(MoveRoutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
         Shoot();
     }
 
@@ -69,7 +75,10 @@ public class Enemy : MonoBehaviour
             _audioSource.Play();
         }
 
-        PreDestroy();
+        if (other.tag != "Trigger")
+        {
+            PreDestroy();
+        }
     }
 
     private void PreDestroy()
@@ -92,42 +101,58 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, Explode.length);
     }
 
-    private void Move()
+    private IEnumerator MoveRoutine()
     {
-        transform.Translate(new Vector3(0, 1, 0) * -_speed * Time.deltaTime, Space.World);
-        if (transform.position.y < -8)
+        while (true)
         {
-            //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
-            Destroy(gameObject);
-        }
-        
-        RaycastHit2D hitleft = Physics2D.Raycast(new Vector2 (transform.position.x - 1, transform.position.y - 1), Vector2.left, 1f);
-                                    //Debug.DrawRay(new Vector2(transform.position.x - 1, transform.position.y - 1), Vector2.left, Color.red, 0.1f, false);
-        RaycastHit2D hitright = Physics2D.Raycast(new Vector2(transform.position.x + 1, transform.position.y - 1), Vector2.right, 1f);
-                                    //Debug.DrawRay(new Vector2(transform.position.x + 1, transform.position.y - 1), Vector2.right, Color.red, 0.1f, false);
-        
+            if (_waitToMove)
+            {
+                //yield return new WaitForSeconds(0.5f);
+                _waitToMove = false;
+            }
 
-        if (_player != null )
-        {
-            if (!hitleft && !hitright)
+            if (_avoidCollision)
             {
-                if (transform.position.x > _player.transform.position.x)
+                if (_collisionLocation.x < transform.position.x)
                 {
-                    transform.Translate(new Vector3(0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(1, 0, 0) * _speed * Time.deltaTime, Space.World);
                 }
-                else if (transform.position.x < _player.transform.position.x)
+                if (_collisionLocation.x > transform.position.x)
                 {
-                    transform.Translate(new Vector3(-0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(-1, 0, 0) * _speed * Time.deltaTime, Space.World);
+                }
+                if (_collisionLocation.y < transform.position.y)
+                {
+                    transform.Translate(new Vector3(0, 1, 0) * _speed * Time.deltaTime, Space.World);
+                }
+                if (_collisionLocation.y > transform.position.y)
+                {
+                    transform.Translate(new Vector3(0, -1, 0) * _speed * Time.deltaTime, Space.World);
                 }
             }
-            else if (hitleft)
+            else
             {
-                transform.Translate(new Vector3(-0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
+                if (_player != null)
+                {
+                    if (transform.position.x > _player.transform.position.x && transform.position.x < 9)
+                    {
+                        transform.Translate(new Vector3(1, 0, 0) * _speed * 0.25f * Time.deltaTime, Space.World);
+                    }
+                    else if (transform.position.x < _player.transform.position.x && transform.position.x > -9)
+                    {
+                        transform.Translate(new Vector3(-1, 0, 0) * _speed * 0.25f * Time.deltaTime, Space.World);
+                    }
+
+                    transform.Translate(new Vector3(0, 1, 0) * -_speed * Time.deltaTime, Space.World);
+                }
             }
-            else if (hitright)
+
+            if (transform.position.y < -8)
             {
-                transform.Translate(new Vector3(0.5f, 0, 0) * -_speed * Time.deltaTime, Space.World);
-            }
+                //transform.position = (new Vector3(Random.Range(-9, 9), 7, 0));
+                Destroy(gameObject);
+            }       
+            yield return null;
         }
     }
 
@@ -151,5 +176,17 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AvoidCollision(Vector3 location)
+    {
+        _collisionLocation = location;
+        _avoidCollision = true;
+    }
+
+    public void ClearCollision()
+    {
+        _waitToMove = true;
+        _avoidCollision = false;
     }
 }

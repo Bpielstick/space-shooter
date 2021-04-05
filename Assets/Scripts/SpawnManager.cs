@@ -6,17 +6,18 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _beamEnemy;
+    [SerializeField] private GameObject _dartEnemy;
     [SerializeField] private GameObject _asteroid;
     [SerializeField] GameObject[] powerups;
     [SerializeField] GameObject[] resourcePowerups;
     [SerializeField] private GameObject _container;
     private bool _stopSpawning = false;
     [SerializeField] private float _powerupRate = 6.0f;
-    private int _waveOneSize = 10;
-    private int _waveTwoSize = 20;
-    private int _waveThreeSize = 30;
-    private int _waveFourSize = 40;
-    private int _waveFiveSize = 50;
+    private int _waveOneSize = 15;
+    private int _waveTwoSize = 15;
+    private int _waveThreeSize = 15;
+    private int _waveFourSize = 15;
+    private int _waveFiveSize = 30;
     private GameObject _canvas;
     private UIManager _UIManager;
     //explosion powerup
@@ -56,14 +57,14 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnResourcePowerupRoutine()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(8);
         while (!_stopSpawning)
         {
             GameObject PowerupToSpawn = resourcePowerups[Random.Range(0, resourcePowerups.Length)];
 
             SpawnPowerup(PowerupToSpawn);
 
-            yield return new WaitForSeconds(_powerupRate + Random.Range(_powerupRate * 0.25f, _powerupRate * 0.5f));
+            yield return new WaitForSeconds(_powerupRate + Random.Range(_powerupRate * 0.1f, _powerupRate * 0.25f));
         }
     }
 
@@ -90,18 +91,10 @@ public class SpawnManager : MonoBehaviour
         int spawncount =0;
         while (!_stopSpawning)
         {
-            int spawnchance = Random.Range(1, 10);
-            if (spawnchance < 2)
-            {
-                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
-            else
-            {
-                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
-            
+
+            GameObject newObject = Instantiate(_dartEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+
             yield return new WaitForSeconds(0.5f);
             spawncount += 1;
             if (spawncount >= _waveOneSize)
@@ -122,19 +115,10 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            int spawnchance = Random.Range(1, 10);
-            if (spawnchance < 2)
-            {
-                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
-            else
-            {
-                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
+            GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.7f);
             spawncount += 1;
             if (spawncount >= _waveTwoSize)
             {
@@ -155,17 +139,17 @@ public class SpawnManager : MonoBehaviour
         while (!_stopSpawning)
         {
             int spawnchance = Random.Range(1, 10);
-            if (spawnchance < 2)
+            if (spawnchance < 3)
             {
                 GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
                 newObject.transform.parent = _container.transform;
             }
             else
             {
-                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                GameObject newObject = Instantiate(_dartEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
                 newObject.transform.parent = _container.transform;
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.7f);
             spawncount += 1;
             if (spawncount >= _waveThreeSize)
             {
@@ -185,18 +169,10 @@ public class SpawnManager : MonoBehaviour
         int spawncount = 0;
         while (!_stopSpawning)
         {
-            int spawnchance = Random.Range(1, 10);
-            if (spawnchance < 2)
-            {
-                GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
-            else
-            {
-                GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
-                newObject.transform.parent = _container.transform;
-            }
-            yield return new WaitForSeconds(0.2f);
+            GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+            newObject.transform.parent = _container.transform;
+
+            yield return new WaitForSeconds(0.7f);
             spawncount += 1;
             if (spawncount >= _waveFourSize)
             {
@@ -222,12 +198,16 @@ public class SpawnManager : MonoBehaviour
                 GameObject newObject = Instantiate(_beamEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
                 newObject.transform.parent = _container.transform;
             }
-            else
+            else if  (spawnchance < 5)
+            {
+                GameObject newObject = Instantiate(_dartEnemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
+                newObject.transform.parent = _container.transform;
+            } else
             {
                 GameObject newObject = Instantiate(_enemy, new Vector3(Random.Range(-9, 10), 7, 0), Quaternion.identity);
                 newObject.transform.parent = _container.transform;
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.7f);
             spawncount += 1;
             if (spawncount >= _waveFiveSize)
             {

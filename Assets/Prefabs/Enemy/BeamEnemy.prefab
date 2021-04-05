@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b183ef6761b34c44847bf888cfb0b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 2
   Explode: {fileID: 7400000, guid: e7f5c606c0760c540b1e0e140c7979fe, type: 2}
   Fire: {fileID: 7400000, guid: c93af06a91e2f1c44b2e56648cdc0d61, type: 2}
   ScoreValue: 500
@@ -155,6 +155,7 @@ MonoBehaviour:
   _beamlaser: {fileID: 1246294977174753689, guid: f033e519a6d19ad49b6bc4aacca0470e, type: 3}
   _laserAudio: {fileID: 8300000, guid: f9ea93457b4169e48a152128b03d9043, type: 3}
   _missileExplosion: {fileID: 6161845864564840571, guid: a2e3146a83dd35743a4846dbd721f507, type: 3}
+  _collisionAvoidanceTrigger: {fileID: 7504919585751712293, guid: ca9b99194849e0145b28dd01537baaa3, type: 3}
 --- !u!82 &-4276370452281220175
 AudioSource:
   m_ObjectHideFlags: 0
