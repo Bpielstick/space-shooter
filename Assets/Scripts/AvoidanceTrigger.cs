@@ -10,7 +10,7 @@ public class AvoidanceTrigger : MonoBehaviour
             && other.gameObject.tag != "Laser" && other.gameObject.tag != "Missile" && other.gameObject.tag != "EnemyLaser")
         { 
         SendMessageUpwards("AvoidCollision", other.transform.position);
-        Debug.Log("collided with " + other.tag);
+        //Debug.Log("collided with " + other.tag);
         }
     }
     private void OnTriggerExit2D(Collider2D other)

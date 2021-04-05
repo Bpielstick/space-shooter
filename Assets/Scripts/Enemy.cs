@@ -158,9 +158,30 @@ public class Enemy : MonoBehaviour
 
     private void Shoot()
     {
+        Powerup[] powerups = GameObject.FindObjectsOfType(typeof(Powerup)) as Powerup[];
+        foreach (Powerup powerup in powerups)
+        {
+            if (Math.Abs(powerup.gameObject.transform.position.y - transform.position.y) < 0.1 && 
+                Math.Abs(powerup.gameObject.transform.position.x - transform.position.x) < 4 && !_hasfired && !_dying)
+            {
+                if (transform.position.x > powerup.gameObject.transform.position.x)
+                {
+                    Instantiate(_leftlaser, new Vector3(-0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    _audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+                else if (transform.position.x < powerup.gameObject.transform.position.x)
+                {
+                    Instantiate(_rightlaser, new Vector3(0.5f, -0.6f, 0) + transform.position, Quaternion.identity);
+                    _audioSource.PlayOneShot(_laserAudio);
+                    _hasfired = true;
+                }
+            }
+        }
+
         if (_player != null)
         {
-            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.5 && !_hasfired && !_dying)
+            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.1 && !_hasfired && !_dying)
             {
                 if (transform.position.x > _player.transform.position.x)
                 {

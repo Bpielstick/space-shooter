@@ -100,7 +100,7 @@ public class BeamEnemy : MonoBehaviour
         {
             if (_waitToMove)
             { 
-                yield return new WaitForSeconds(0.5f);
+                //yield return new WaitForSeconds(0.5f);
                 _waitToMove = false;
             }
 

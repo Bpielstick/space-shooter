@@ -3099,7 +3099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: invulnerability
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
