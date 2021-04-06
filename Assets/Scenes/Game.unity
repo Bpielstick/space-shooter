@@ -3202,7 +3202,7 @@ PrefabInstance:
       objectReference: {fileID: 1579586803099290189, guid: 409c14da48ea8d74683c1a59b9e9863d, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _missilesActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: invulnerability

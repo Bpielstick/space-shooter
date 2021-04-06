@@ -143,5 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 6
+  _duration: 4
   _x: 0
   _y: 1
+  _homing: 1
