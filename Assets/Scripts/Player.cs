@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip _missileAudio;
     [SerializeField] private AudioClip _powerupAudio;
     [SerializeField] private AudioClip _outOfAmmo;
+    [SerializeField] private AudioClip _collectAudio;
     private AudioSource _audioSource;
     [SerializeField] private int _maxAmmo = 15;
     [SerializeField] private int _currentAmmo = 15;
@@ -239,6 +240,11 @@ public class Player : MonoBehaviour
         } else
         {            
             gameObject.transform.GetChild(10).gameObject.SetActive(false);
+        }
+        if (Input.GetKeyDown("c"))
+        {
+            _audioSource.clip = _collectAudio;
+            _audioSource.Play();
         }
     }
 

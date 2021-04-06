@@ -483,9 +483,10 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "WASD - Move\t\t\tSpace - Shoot          ESC - Quit"
+  m_Text: "WASD - Move\t\t\tSpace - Shoot\t\t\tShift - Thrust\t\t\tC - Collect Powerup       
+    \n \t\t\t\t\t\t\t\t\t\t\t\t   ESC - Quit"
 --- !u!222 &295957536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -510,7 +511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -91, y: 25}
+  m_AnchoredPosition: {x: -156, y: 25}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &347325408
@@ -1115,7 +1116,7 @@ MonoBehaviour:
   - {fileID: 7222006215489004455, guid: fc4b6a5b45027ad429880354f3c9bfdb, type: 3}
   - {fileID: 7222006215489004455, guid: fc4b6a5b45027ad429880354f3c9bfdb, type: 3}
   _container: {fileID: 1513578747}
-  _powerupRate: 6
+  _powerupRate: 5
 --- !u!4 &941004543
 Transform:
   m_ObjectHideFlags: 0
@@ -1960,7 +1961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.4, y: 0}
+  m_AnchoredPosition: {x: -19.4, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1513578747
@@ -2874,7 +2875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18, y: -31}
+  m_AnchoredPosition: {x: 14, y: -31}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2034343016
@@ -3045,7 +3046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 44.1, y: 31}
+  m_AnchoredPosition: {x: 40.1, y: 31}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &8613393914034411442
@@ -3101,11 +3102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732419, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732419, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.53
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732419, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3187,6 +3188,10 @@ PrefabInstance:
       propertyPath: _cameraObject
       value: 
       objectReference: {fileID: 848357106}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _collectAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: e1f3f272951eea34e9978fda7d5ea359, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _missileAudio
       value: 

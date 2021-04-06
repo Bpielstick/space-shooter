@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject[] resourcePowerups;
     [SerializeField] private GameObject _container;
     private bool _stopSpawning = false;
-    [SerializeField] private float _powerupRate = 6.0f;
+    [SerializeField] private float _powerupRate = 5.0f;
     private int _waveOneSize = 15;
     private int _waveTwoSize = 15;
     private int _waveThreeSize = 15;

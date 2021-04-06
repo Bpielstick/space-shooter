@@ -114,19 +114,19 @@ public class DartEnemy : MonoBehaviour
             {
                 if (_collisionLocation.x < transform.position.x)
                 {
-                    transform.Translate(new Vector3(1, 0, 0) * _speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(1, 0, 0) * _speed * 0.3f * Time.deltaTime, Space.World);
                 }
                 if (_collisionLocation.x > transform.position.x)
                 {
-                    transform.Translate(new Vector3(-1, 0, 0) * _speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(-1, 0, 0) * _speed * 0.3f * Time.deltaTime, Space.World);
                 }
                 if (_collisionLocation.y < transform.position.y)
                 {
-                    transform.Translate(new Vector3(0, 1, 0) * _speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(0, 1, 0) * _speed * 0.3f * Time.deltaTime, Space.World);
                 }
                 if (_collisionLocation.y > transform.position.y)
                 {
-                    transform.Translate(new Vector3(0, -1, 0) * _speed * Time.deltaTime, Space.World);
+                    transform.Translate(new Vector3(0, -1, 0) * _speed * 0.3f * Time.deltaTime, Space.World);
                 }
             }
             else
