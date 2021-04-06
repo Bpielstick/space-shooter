@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         FireButtonListener();
+        CollectPickups();
         _UIManager.SetThrust(_currentThrust / _maxThrust);
     }
 
@@ -216,6 +217,28 @@ public class Player : MonoBehaviour
 
             _audioSource.clip = _explodeAudio;
             _audioSource.Play();
+        }
+    }
+
+    public void CollectPickups()
+    {
+        if (Input.GetKey("c"))
+        {
+            gameObject.transform.GetChild(10).gameObject.SetActive(true);
+            Debug.Log(gameObject.transform.GetChild(10).name);
+
+            Powerup[] powerups = GameObject.FindObjectsOfType(typeof(Powerup)) as Powerup[];
+            foreach (Powerup powerup in powerups)
+            {
+                if (Math.Abs(powerup.gameObject.transform.position.x - transform.position.x) < 4 &&
+                    Math.Abs(powerup.gameObject.transform.position.y - transform.position.y) < 4)
+                {
+                    powerup.transform.position = Vector3.MoveTowards(powerup.transform.position, transform.position, 3 * Time.deltaTime);
+                }
+            }
+        } else
+        {            
+            gameObject.transform.GetChild(10).gameObject.SetActive(false);
         }
     }
 
