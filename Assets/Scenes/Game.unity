@@ -1098,6 +1098,7 @@ MonoBehaviour:
   _enemy: {fileID: 5472141035448685452, guid: 0630810147f455748a27269dc8f86bad, type: 3}
   _beamEnemy: {fileID: 4763389121165715264, guid: 97f951d0f7ffd9e468fcb00218209d63, type: 3}
   _dartEnemy: {fileID: 6830516491899748868, guid: 85986d0d111ff104e8dbd783ffeaaa38, type: 3}
+  _boss: {fileID: 4720486593716873885, guid: a18cb3bb041af9e4b97b9c3d5a0c2f9d, type: 3}
   _asteroid: {fileID: 6675251844922204511, guid: 16cd50c03343ff54b9d28d76a59e6825, type: 3}
   powerups:
   - {fileID: 3864806976638038471, guid: b5d4fd2bf5a81b94ea5427ceda927a40, type: 3}
@@ -3202,10 +3203,14 @@ PrefabInstance:
       objectReference: {fileID: 1579586803099290189, guid: 409c14da48ea8d74683c1a59b9e9863d, type: 3}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: _missilesActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
       propertyPath: invulnerability
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613393914219732447, guid: 2025a869da3e92143a3f70bd94da6976, type: 3}
+      propertyPath: _thrustRegenerationEnabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

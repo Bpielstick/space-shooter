@@ -181,7 +181,7 @@ public class Enemy : MonoBehaviour
 
         if (_player != null)
         {
-            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.1 && !_hasfired && !_dying)
+            if (Math.Abs(transform.position.y - _player.transform.position.y) < 0.5 && !_hasfired && !_dying)
             {
                 if (transform.position.x > _player.transform.position.x)
                 {

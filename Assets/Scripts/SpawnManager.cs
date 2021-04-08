@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _beamEnemy;
     [SerializeField] private GameObject _dartEnemy;
+    [SerializeField] private GameObject _boss;
     [SerializeField] private GameObject _asteroid;
     [SerializeField] GameObject[] powerups;
     [SerializeField] GameObject[] resourcePowerups;
@@ -20,6 +21,7 @@ public class SpawnManager : MonoBehaviour
     private int _waveFiveSize = 30;
     private GameObject _canvas;
     private UIManager _UIManager;
+    private int _roundCount = 1;
     //explosion powerup
 
     // Start is called before the first frame update
@@ -97,12 +99,12 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
             spawncount += 1;
-            if (spawncount >= _waveOneSize)
+            if (spawncount >= _waveOneSize * _roundCount)
             {
                 yield return new WaitForSeconds(1);
                 StartCoroutine(SpawnAsteroids());
                 yield return new WaitForSeconds(2);
-                _UIManager.UpdateWave(2);
+                _UIManager.UpdateWave(2 + (_roundCount - 1) * 5);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveTwoRoutine());
                 yield break;
@@ -120,12 +122,12 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.7f);
             spawncount += 1;
-            if (spawncount >= _waveTwoSize)
+            if (spawncount >= _waveTwoSize * _roundCount)
             {
                 yield return new WaitForSeconds(1);
                 StartCoroutine(SpawnAsteroids());
                 yield return new WaitForSeconds(2);
-                _UIManager.UpdateWave(3);
+                _UIManager.UpdateWave(3 + (_roundCount - 1) * 5);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveThreeRoutine());
                 yield break;
@@ -151,12 +153,12 @@ public class SpawnManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.7f);
             spawncount += 1;
-            if (spawncount >= _waveThreeSize)
+            if (spawncount >= _waveThreeSize * _roundCount)
             {
                 yield return new WaitForSeconds(1);
                 StartCoroutine(SpawnAsteroids());
                 yield return new WaitForSeconds(2);
-                _UIManager.UpdateWave(4);
+                _UIManager.UpdateWave(4 + (_roundCount - 1) * 5);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveFourRoutine());
                 yield break;
@@ -174,12 +176,12 @@ public class SpawnManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.7f);
             spawncount += 1;
-            if (spawncount >= _waveFourSize)
+            if (spawncount >= _waveFourSize * _roundCount)
             {
                 yield return new WaitForSeconds(1);
                 StartCoroutine(SpawnAsteroids());
                 yield return new WaitForSeconds(2);
-                _UIManager.UpdateWave(5);
+                _UIManager.UpdateWave(5 + (_roundCount - 1) * 5);
                 yield return new WaitForSeconds(5);
                 StartCoroutine(WaveFiveRoutine());
                 yield break;
@@ -211,9 +213,30 @@ public class SpawnManager : MonoBehaviour
             spawncount += 1;
             if (spawncount >= _waveFiveSize)
             {
-                //do something here
+                StartCoroutine(BossRoutine());
+                yield break;
             }
         }
+    }
+
+    private IEnumerator BossRoutine()
+    {
+        GameObject boss = Instantiate(_boss, new Vector3(0, 10, 0), Quaternion.identity);
+        while (boss != null)
+        {
+            if (boss.GetComponent<BossEnemy>().health <= 0)
+            {
+                _roundCount++;
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnAsteroids());
+                yield return new WaitForSeconds(2);
+                _UIManager.UpdateWave(1 + (_roundCount - 1) * 5);
+                yield return new WaitForSeconds(5);
+                StartCoroutine(WaveOneRoutine());
+                yield break;
+            }
+            yield return null;
+        }        
     }
 
     private IEnumerator SpawnAsteroids()
